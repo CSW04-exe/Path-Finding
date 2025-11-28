@@ -1,0 +1,232 @@
+CS 330 — Pathfinding Adventure Bay (A*)
+Graph summary
+
+Nodes
+N 1 x=20.0 z=30.0 "Lookout control"
+N 2 x=20.0 z=15.0 "Lookout base"
+N 3 x=50.0 z=10.0 "Bridge W end"
+N 4 x=70.0 z=10.0 "Bridge W tower"
+N 5 x=115.0 z=10.0 "Bridge E tower"
+N 6 x=135.0 z=10.0 "Bridge E end"
+N 7 x=165.0 z=10.0
+N 8 x=170.0 z=15.0
+N 9 x=180.0 z=15.0 "Katie's Pet Parlor"
+N 10 x=170.0 z=65.0
+N 11 x=160.0 z=65.0
+N 12 x=151.0 z=68.0
+N 13 x=142.0 z=71.0
+N 14 x=133.0 z=74.0
+N 15 x=124.0 z=77.0
+N 16 x=115.0 z=80.0
+N 17 x=92.5 z=80.0
+N 18 x=70.0 z=80.0
+N 19 x=45.0 z=75.0
+N 20 x=35.0 z=70.0
+N 21 x=20.0 z=55.0
+N 22 x=30.0 z=50.0
+N 23 x=45.0 z=40.0
+N 24 x=40.0 z=60.0 "Dock 1"
+N 25 x=50.0 z=65.0 "Dock 2"
+N 26 x=70.0 z=70.0
+N 27 x=70.0 z=60.0 "Dock 3"
+N 28 x=92.5 z=70.0 "Beach 1"
+N 29 x=115.0 z=70.0 "Beach 2"
+N 30 x=140.0 z=62.0 "Beach 3"
+N 31 x=128.5 z=83.0 "1"
+N 32 x=137.5 z=80.0 "2"
+N 33 x=146.5 z=77.0 "3"
+N 34 x=155.5 z=74.0 "Shops 4"
+N 35 x=175.0 z=85.0
+N 36 x=175.0 z=65.0
+N 37 x=145.0 z=95.0
+N 38 x=130.0 z=100.0
+N 39 x=152.0 z=105.0 "Train station"
+N 40 x=145.0 z=120.0
+N 41 x=160.0 z=140.0
+N 42 x=175.0 z=160.0 "Jake's snowboarding resort"
+N 43 x=75.0 z=190.0 "Foggy Bottom"
+N 44 x=115.0 z=100.0
+N 45 x=92.5 z=100.0 "City Hall"
+N 46 x=70.0 z=100.0
+N 47 x=70.0 z=110.0
+N 48 x=77.0 z=110.0
+N 49 x=85.0 z=110.0
+N 50 x=92.5 z=110.0
+N 51 x=100.0 z=110.0
+N 52 x=108.0 z=110.0
+N 53 x=115.0 z=110.0
+N 54 x=108.0 z=120.0 "5"
+N 55 x=100.0 z=120.0 "4"
+N 56 x=92.5 z=120.0 "Houses 3"
+N 57 x=85.0 z=120.0 "2"
+N 58 x=77.0 z=120.0 "1"
+N 59 x=60.0 z=90.0 "Porter's Cafe"
+N 60 x=182.0 z=95.0 "Pup Park"
+N 61 x=43.0 z=98.0
+N 62 x=35.0 z=95.0
+N 63 x=30.0 z=105.0
+N 64 x=65.0 z=120.0
+N 65 x=40.0 z=105.0 "Ms. Marjorie's house"
+N 66 x=20.0 z=145.0 "Farmer Umi's farm"
+
+Connections
+C 1 -> 2  cost=5.0
+C 2 -> 1  cost=30.0
+C 2 -> 3  cost=40.0
+C 3 -> 2  cost=60.0
+C 3 -> 4  cost=20.0
+C 4 -> 3  cost=20.0
+C 4 -> 5  cost=45.0
+C 5 -> 4  cost=45.0
+C 5 -> 6  cost=20.0
+C 6 -> 5  cost=20.0
+C 6 -> 7  cost=30.0
+C 7 -> 6  cost=30.0
+C 7 -> 8  cost=8.0
+C 8 -> 7  cost=8.0
+C 8 -> 9  cost=10.0
+C 8 -> 10  cost=50.0
+C 9 -> 8  cost=10.0
+C 10 -> 8  cost=50.0
+C 10 -> 11  cost=10.0
+C 11 -> 12  cost=10.0
+C 11 -> 35  cost=25.0
+C 12 -> 11  cost=10.0
+C 12 -> 13  cost=10.0
+C 12 -> 34  cost=15.0
+C 13 -> 12  cost=10.0
+C 13 -> 14  cost=10.0
+C 13 -> 30  cost=19.0
+C 13 -> 33  cost=15.0
+C 14 -> 13  cost=10.0
+C 14 -> 15  cost=10.0
+C 14 -> 32  cost=15.0
+C 15 -> 14  cost=10.0
+C 15 -> 16  cost=10.0
+C 15 -> 31  cost=15.0
+C 16 -> 15  cost=10.0
+C 16 -> 17  cost=22.0
+C 16 -> 29  cost=20.0
+C 16 -> 38  cost=25.0
+C 16 -> 44  cost=20.0
+C 17 -> 16  cost=22.0
+C 17 -> 18  cost=22.0
+C 17 -> 18  cost=22.0
+C 17 -> 28  cost=20.0
+C 17 -> 45  cost=40.0
+C 18 -> 19  cost=26.0
+C 18 -> 26  cost=20.0
+C 18 -> 46  cost=20.0
+C 18 -> 59  cost=29.0
+C 19 -> 18  cost=26.0
+C 19 -> 20  cost=12.0
+C 19 -> 25  cost=23.0
+C 19 -> 59  cost=43.0
+C 19 -> 62  cost=23.0
+C 20 -> 19  cost=12.0
+C 20 -> 21  cost=25.0
+C 20 -> 24  cost=23.0
+C 21 -> 20  cost=25.0
+C 21 -> 22  cost=12.0
+C 22 -> 23  cost=19.0
+C 23 -> 3  cost=31.0
+C 24 -> 20  cost=23.0
+C 25 -> 19  cost=23.0
+C 26 -> 18  cost=20.0
+C 26 -> 27  cost=20.0
+C 26 -> 28  cost=45.0
+C 27 -> 26  cost=20.0
+C 28 -> 17  cost=20.0
+C 28 -> 26  cost=45.0
+C 28 -> 29  cost=45.0
+C 29 -> 16  cost=20.0
+C 29 -> 28  cost=45.0
+C 29 -> 30  cost=53.0
+C 30 -> 13  cost=19.0
+C 30 -> 29  cost=53.0
+C 31 -> 15  cost=15.0
+C 32 -> 14  cost=15.0
+C 33 -> 13  cost=15.0
+C 34 -> 12  cost=15.0
+C 35 -> 36  cost=20.0
+C 35 -> 37  cost=32.0
+C 35 -> 60  cost=25.0
+C 36 -> 10  cost=5.0
+C 37 -> 35  cost=32.0
+C 37 -> 38  cost=16.0
+C 37 -> 39  cost=25.0
+C 38 -> 16  cost=25.0
+C 38 -> 37  cost=16.0
+C 38 -> 40  cost=25.0
+C 38 -> 44  cost=15.0
+C 39 -> 37  cost=25.0
+C 40 -> 38  cost=25.0
+C 40 -> 41  cost=25.0
+C 40 -> 43  cost=99.0
+C 41 -> 40  cost=25.0
+C 41 -> 42  cost=25.0
+C 42 -> 41  cost=25.0
+C 43 -> 40  cost=99.0
+C 44 -> 16  cost=20.0
+C 44 -> 38  cost=15.0
+C 44 -> 45  cost=45.0
+C 44 -> 53  cost=10.0
+C 45 -> 17  cost=40.0
+C 45 -> 44  cost=45.0
+C 45 -> 46  cost=45.0
+C 45 -> 50  cost=20.0
+C 46 -> 18  cost=20.0
+C 46 -> 45  cost=45.0
+C 46 -> 47  cost=10.0
+C 46 -> 59  cost=29.0
+C 47 -> 46  cost=10.0
+C 47 -> 48  cost=7.0
+C 47 -> 61  cost=30.0
+C 47 -> 64  cost=12.0
+C 48 -> 47  cost=7.0
+C 48 -> 49  cost=8.0
+C 48 -> 58  cost=20.0
+C 49 -> 48  cost=8.0
+C 49 -> 50  cost=8.0
+C 49 -> 57  cost=20.0
+C 50 -> 45  cost=20.0
+C 50 -> 49  cost=8.0
+C 50 -> 51  cost=8.0
+C 50 -> 56  cost=20.0
+C 51 -> 50  cost=8.0
+C 51 -> 52  cost=8.0
+C 51 -> 55  cost=20.0
+C 52 -> 51  cost=8.0
+C 52 -> 53  cost=7.0
+C 52 -> 54  cost=20.0
+C 53 -> 44  cost=10.0
+C 53 -> 52  cost=7.0
+C 54 -> 52  cost=20.0
+C 55 -> 51  cost=20.0
+C 56 -> 50  cost=20.0
+C 57 -> 49  cost=20.0
+C 58 -> 48  cost=20.0
+C 59 -> 18  cost=29.0
+C 59 -> 19  cost=43.0
+C 59 -> 46  cost=29.0
+C 60 -> 35  cost=25.0
+C 61 -> 47  cost=30.0
+C 61 -> 62  cost=10.0
+C 61 -> 65  cost=16.0
+C 62 -> 19  cost=23.0
+C 62 -> 61  cost=10.0
+C 62 -> 63  cost=12.0
+C 63 -> 62  cost=12.0
+C 63 -> 64  cost=39.0
+C 64 -> 47  cost=12.0
+C 64 -> 63  cost=39.0
+C 64 -> 66  cost=70.0
+C 65 -> 61  cost=16.0
+C 66 -> 64  cost=70.0
+
+Requested paths
+Path 1 -> 29: 1 2 3 4 5 6 7 8 10 11 12 13 14 15 16 29   cost=298.0
+Path 1 -> 38: 1 2 3 4 5 6 7 8 10 11 35 37 38   cost=301.0
+Path 11 -> 1: 11 12 13 14 15 16 17 18 19 20 21 22 23 3 2 1   cost=309.0
+Path 33 -> 66: 33 13 14 15 16 17 18 46 47 64 66   cost=201.0
+Path 58 -> 43: 58 48 49 50 51 52 53 44 38 40 43   cost=208.0
